@@ -162,7 +162,7 @@ void readSensor() {
   // If the sensor is disconnected the library returns NaN
   if (isnan(v) || isnan(i) || isnan(p) || isnan(e) || isnan(f) || isnan(pf)) {
     latest.valid = false;
-    Serial.println("[PZEM] Read error (check wiring / AC power).");
+    Serial.println("Device Offline Mode");
     return;
   }
 
