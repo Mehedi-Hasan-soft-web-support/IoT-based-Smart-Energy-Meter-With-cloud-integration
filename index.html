@@ -285,13 +285,17 @@
 
     <!-- ============ DEVELOPER ============ -->
     <section class="tab-page" id="page-developer">
-      <div class="dev-profile card" id="devProfile"><!-- filled by JS --></div>
-      <div class="page-head">
-        <h2>Projects</h2>
-        <p class="muted">portfolio &amp; project showcase</p>
-      </div>
-      <div class="projects" id="projects"><!-- filled by JS --></div>
-    </section>
+  <div class="dev-profile card" id="devProfile"><!-- filled by JS --></div>
+  <div class="page-head">
+    <div>
+      <h2>Projects</h2>
+      <p class="muted" id="projCaption">portfolio &amp; project showcase</p>
+    </div>
+    <button class="btn" id="galleryToggleBtn">Gallery view</button>
+  </div>
+  <div class="projects" id="projects"><!-- filled by JS --></div>
+  <div class="gallery-grid" id="galleryGrid" style="display:none;"></div>
+</section>
 
     <footer>SmartEnergy · device <span id="footDevice">meter_01</span> · auto-refresh 5s</footer>
   </div>
