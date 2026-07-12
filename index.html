@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartEnergy · Solar Monitor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+  <div class="app">
+    <!-- ============ NAV ============ -->
+    <header class="nav">
+      <div class="brand">
+        <svg class="sun" viewBox="0 0 40 40" width="30" height="30">
+          <g fill="#f2531a">
+            <circle cx="20" cy="20" r="7" />
+            <g stroke="#f2531a" stroke-width="2.4" stroke-linecap="round">
+              <line x1="20" y1="3" x2="20" y2="9" />
+              <line x1="20" y1="31" x2="20" y2="37" />
+              <line x1="3" y1="20" x2="9" y2="20" />
+              <line x1="31" y1="20" x2="37" y2="20" />
+              <line x1="8" y1="8" x2="12" y2="12" />
+              <line x1="28" y1="28" x2="32" y2="32" />
+              <line x1="32" y1="8" x2="28" y2="12" />
+              <line x1="12" y1="28" x2="8" y2="32" />
+            </g>
+          </g>
+        </svg>
+        <b>Smart<span>Energy</span></b>
+      </div>
+      <nav class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="overview">Overview</button>
+        <button class="tab-btn" data-tab="monitoring">Monitoring</button>
+        <button class="tab-btn" data-tab="analytics">Analytics</button>
+        <button class="tab-btn" data-tab="energy">Energy</button>
+        <button class="tab-btn" data-tab="developer">Developer</button>
+      </nav>
+      <div class="nav-right">
+        <span id="statusDot" class="dot offline"></span>
+        <span class="pill"><span id="statusText">…</span></span>
+        <div class="avatar" id="navAvatar">D</div>
+      </div>
+    </header>
+
+    <!-- ============ OVERVIEW ============ -->
+    <section class="tab-page active" id="page-overview">
+      <div class="hero">
+        <div class="hero-text">
+          <h1><span class="hl">Here's Your</span> Current<br />Energy Overview</h1>
+          <p>Live summary of your smart energy meter</p>
+          <div class="hero-chips">
+            <span class="chip"><b id="heroPower">-- W</b>current load</span>
+            <span class="chip"><b id="heroEnergy">-- kWh</b>total energy</span>
+            <span class="chip"><b id="heroPf">--</b>power factor</span>
+          </div>
+        </div>
+        <div class="hero-art">
+          <svg viewBox="0 0 320 220" width="100%">
+            <ellipse cx="160" cy="205" rx="140" ry="12" fill="#00000010" />
+            <rect x="90" y="120" width="150" height="80" rx="4" fill="#f3efe7" />
+            <polygon points="80,120 175,60 250,120" fill="#2a2a2a" />
+            <polygon points="120,110 175,72 205,72 155,110" fill="#1c2b45" />
+            <g stroke="#33456a" stroke-width="1">
+              <line x1="132" y1="103" x2="188" y2="103" />
+              <line x1="145" y1="93" x2="196" y2="93" />
+            </g>
+            <rect x="110" y="140" width="26" height="30" rx="2" fill="#ffd9a0" />
+            <rect x="150" y="140" width="26" height="30" rx="2" fill="#ffd9a0" />
+            <rect x="196" y="150" width="30" height="50" rx="2" fill="#26303f" />
+            <circle cx="60" cy="180" r="14" fill="#7fae7f" />
+            <rect x="57" y="180" width="6" height="20" fill="#6b5b4a" />
+            <circle cx="285" cy="180" r="16" fill="#7fae7f" />
+            <rect x="282" y="180" width="6" height="22" fill="#6b5b4a" />
+            <g fill="#f2531a">
+              <circle cx="285" cy="40" r="12" />
+              <g stroke="#f2531a" stroke-width="2" stroke-linecap="round">
+                <line x1="285" y1="18" x2="285" y2="24" />
+                <line x1="285" y1="56" x2="285" y2="62" />
+                <line x1="263" y1="40" x2="269" y2="40" />
+                <line x1="301" y1="40" x2="307" y2="40" />
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="ov-grid">
+        <div class="card total-energy">
+          <div class="card-head">
+            <h3>Total Energy</h3><span class="arrow">↗</span>
+          </div>
+          <p class="mini"><span class="bolt">⚡</span> <span id="ovStatus">Live</span> · <span id="ovTime">--</span></p>
+          <div class="progress">
+            <div class="progress-fill" id="ovProgress"><span id="ovProgressTxt">--%</span></div>
+          </div>
+          <p class="mini muted">Load vs <span id="ovMax">--</span> W capacity</p>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>Current Power</h3><span class="arrow">↗</span>
+          </div>
+          <div class="triple">
+            <div><b id="cpNow">--</b><span>Now (W)</span></div>
+            <div><b id="cpPeak">--</b><span>Peak (W)</span></div>
+            <div><b id="cpAvg">--</b><span>Avg (W)</span></div>
+          </div>
+          <div class="chart-box" style="height:90px"><canvas id="ovPowerBar"></canvas></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>Energy Balance Today</h3><span class="arrow">↗</span>
+          </div>
+          <div class="legend"><span><i class="sw orange"></i>Consumed</span><span><i class="sw gold"></i>Est.
+              cost</span></div>
+          <div class="semi"><canvas id="ovBalance"></canvas>
+            <div class="semi-center"><b id="ovBalKwh">-- kWh</b><span>today</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>CO₂ Savings</h3><span class="arrow">↗</span>
+          </div>
+          <div class="ic-line"><span class="ic">🌱</span><b id="ovCo2">-- kg</b></div>
+          <p class="mini muted">≈ <span id="ovCo2Km">--</span> km driving avoided</p>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>Estimated Earning / Cost</h3><span class="arrow">↗</span>
+          </div>
+          <div class="ic-line"><span class="ic">💰</span><b><span id="ovCost">--</span> <small
+                id="ovCur">BDT</small></b></div>
+          <p class="mini muted" id="ovTariff">-- /kWh</p>
+        </div>
+
+        <div class="card wide">
+          <div class="card-head">
+            <h3>Total Energy Trend</h3><span class="arrow">↗</span>
+          </div>
+          <div class="chart-box" style="height:120px"><canvas id="ovTotalLine"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MONITORING ============ -->
+    <section class="tab-page" id="page-monitoring">
+      <div class="page-head">
+        <h2>Live Monitoring</h2>
+        <p class="muted" id="monTime">real-time meter data</p>
+      </div>
+      <div class="tiles">
+        <div class="tile"><span>Voltage</span><b><span id="mV">--</span> V</b></div>
+        <div class="tile"><span>Current</span><b><span id="mA">--</span> A</b></div>
+        <div class="tile"><span>Power</span><b><span id="mW">--</span> W</b></div>
+        <div class="tile"><span>Energy</span><b><span id="mE">--</span> kWh</b></div>
+        <div class="tile"><span>Frequency</span><b><span id="mF">--</span> Hz</b></div>
+        <div class="tile"><span>Power Factor</span><b><span id="mPf">--</span></b></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head">
+            <h3>Live Power</h3>
+          </div>
+          <div class="chart-box" style="height:240px"><canvas id="monLive"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h3>Load &amp; Power Factor</h3>
+          </div>
+          <div class="gauge-2">
+            <div class="g-item"><canvas id="monLoad"></canvas>
+              <div class="g-c"><b id="monLoadPct">--</b><span>load</span></div>
+            </div>
+            <div class="g-item"><canvas id="monPf"></canvas>
+              <div class="g-c"><b id="monPfVal">--</b><span>PF</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ANALYTICS ============ -->
+    <section class="tab-page" id="page-analytics">
+      <div class="page-head">
+        <div>
+          <h2>Consumption Analytics</h2>
+          <p class="muted" id="anCaption">Today · hourly</p>
+        </div>
+        <div class="segment" id="rangeSeg">
+          <button class="seg active" data-range="daily">Daily</button>
+          <button class="seg" data-range="monthly">Monthly</button>
+          <button class="seg" data-range="yearly">Yearly</button>
+        </div>
+      </div>
+      <div class="mini-stats">
+        <div><span>Consumed</span><b id="sumEnergy">--</b></div>
+        <div><span>Avg Power</span><b id="sumAvg">--</b></div>
+        <div><span>Peak Power</span><b id="sumPeak">--</b></div>
+        <div><span>Avg Voltage</span><b id="sumVolt">--</b></div>
+        <div><span>Est. Cost</span><b id="sumCost">--</b></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <h3>Energy &amp; Average Power</h3>
+        </div>
+        <div class="chart-box" style="height:260px"><canvas id="anMain"></canvas></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head">
+            <h3>Voltage Trend</h3>
+          </div>
+          <div class="chart-box" style="height:220px"><canvas id="anVolt"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h3>Avg Load by Time of Day</h3>
+          </div>
+          <div class="chart-box" style="height:220px"><canvas id="anDist"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ENERGY ============ -->
+    <section class="tab-page" id="page-energy">
+      <div class="page-head">
+        <h2>Energy &amp; Cost</h2>
+        <p class="muted">breakdown and data management</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head">
+            <h3>Estimated Cost per Period</h3>
+          </div>
+          <div class="chart-box" style="height:220px"><canvas id="enCost"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h3>Cumulative Energy</h3>
+          </div>
+          <div class="chart-box" style="height:220px"><canvas id="enCum"></canvas></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3>Data Manager</h3>
+            <p class="mini muted">browse &amp; clean stored readings</p>
+          </div>
+          <div class="danger-actions">
+            <button class="btn warn" id="delOldBtn">Clear &gt; 30 days</button>
+            <button class="btn danger" id="delAllBtn">Delete all</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="tbl">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>V</th>
+                <th>A</th>
+                <th>W</th>
+                <th>kWh</th>
+                <th>Hz</th>
+                <th>PF</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="mini muted" id="rowCount">—</p>
+      </div>
+    </section>
+
+    <!-- ============ DEVELOPER ============ -->
+    <section class="tab-page" id="page-developer">
+      <div class="dev-profile card" id="devProfile"><!-- filled by JS --></div>
+      <div class="page-head">
+        <h2>Projects</h2>
+        <p class="muted">portfolio &amp; project showcase</p>
+      </div>
+      <div class="projects" id="projects"><!-- filled by JS --></div>
+    </section>
+
+    <footer>SmartEnergy · device <span id="footDevice">meter_01</span> · auto-refresh 5s</footer>
+  </div>
+
+  <!-- modal + toast -->
+  <div class="modal-bg" id="modal">
+    <div class="modal">
+      <h3 id="modalTitle">Delete data?</h3>
+      <p id="modalMsg">This cannot be undone.</p>
+      <div class="modal-actions"><button class="btn ghost" id="modalCancel">Cancel</button>
+        <button class="btn danger" id="modalConfirm">Delete</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
