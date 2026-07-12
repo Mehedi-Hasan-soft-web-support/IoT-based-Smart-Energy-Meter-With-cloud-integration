@@ -77,7 +77,41 @@ const PROJECTS = [
   { n: "ESP32 LoRa Bridge Communication System", tag: "LoRa · Research", status: "Research", links: [] },
   { n: "Prossash: IoT Nebulizer & Patient Tracking System", tag: "IoT · Health", links: [{ l: "Code", u: GH+"Prossas" }] },
 ];
-
+const IMAGES = [
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUBqeM__yERzgF-z5Qhi4wEAoMvEMYSInPiLEsWr71ia7hzlZg_EuRJYlN-OYYjRs90_fJDrGLtKNSbxq2x2smMHor85xGApniW1kArubN20Q7d_IYPfCq-7sPmMu8x7f0IHd4Im8TIHm2XumhSV1RpckPHi-vfzroNo4Sd2pZecZJQsoeg2cT3nH0VZRfhlUja8IXfwDvyfSZzeMRcGTGZxlvUt3aA1X-T0W7WhceY=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUCagJA8NvznkDL7NZNibcY8O4tAXVpaKocmUi_Qui0K4c2d8dayvdtQCv8njsfvPg5yARmoK_PwJUb51sisdRci_Y9uq8sYVYjCFHaltDXMD7Ms2O74fjy8vVBgg34hBU85v-XvbHy4Frl7mDWxtOwmtCwbkEubz3HXJMXMnYtjVC5ds5zgsYBvMymo-MsgyetOYn13ZBWwyvqQoaxMQ2ZwJZMae9hFilYkfqWc0j8=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUCdbmTv7hRPZWhKKNGmGeXur8mMNqF4O3Jjwwt79ORSUZ1lbnjluyLjqm-DT2xSCTMY2QnEudJ-u5j0UQgWqawbQksXA6KbXW2ZPalCYi5R6Dxa1Bu9Gxc-9ZzYV4mTyO6tIJThzrFXepECqcTkCw6O2yWhtYJmUlf_k7_y_70souJrhedOOYCykVbflH9zODu3Qz2s9ephq9M8kuz7Ztxuolnax4v9xfj1FFHH=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUB7BCAaGdyReF4J1HUs0scw2b1iuwOlmq2sVXGjdntOXPtABKDHSgknvmPc7ANaNHHKYCyTO0EbBoI1CZxWk3UX6qG2dw6T3AciawJpQYff7X41cg4Xtq1z5ymNDJq7MgCSSLELzNiIKmA8Cn4al3ipkrymxFu9B3wXrSio-m7yi_UgXRV-bZJ7sPOxIRWBJKLs3o88rdQi5Zw8GvVpgjEgvpWX73YpDqWB9lSh=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUDXKdIftp0zheegK6Kh1VebXX6Ng_uwOVp8BL6oOE-Pl_UValef1A9pjipQisYDusrzI8DSWvspWwYV4Lv0ay_E3riPZB7DepwfV6U5KmaQStB47RodmpnEvjlTkuXy-9kfAcx6TsgEJJId2VHljosmVNPBAnCMymlDNjDy8B0_b4uCRA5nAScHW9PALl9li6PLIoQy5Ofh7DS2tGIbKE8fAfEbLBVwGln90wO5WnY=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUChiXPvTtna0OQY5KqYjAyKcrJwIlCp5pgzzcBT3IpXC9Rh4krMvrwWb57L19xZDy2bflJqw1M0WIwlhs1i0TyxZNovLcypuwNyTQJu6Iojb6xNDRpd0s9O21jQB9BMndwgqsoeQQPKBQbpjB8MqeQZu0OYmBDYGQ9rkbcR1wz2tiNSBo15oKWTN0goOVFQkKWuXieu307b_iOLSR62-BFe4rDI5elQ7hjSa2oko2Y=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUBOwYvKkeuFBYLZKAWc1temULfU1iN6dqGZyQwIPWX8-oLIGF2zrUnVmcUY4c7hKlmzp0zhg5Eevy3RY1d9HFtSgwPknp3FpHUa10yoN1HJ1tr4a9m9VniA3TY4c5TlfD1Lo5V37DgLpXhzlQ-CDzYK-356iaCfqiCMAQmwZ3S6vY5o-G1Qr2shESVARlY=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUCe_f7qIIWxG-tODOS0gbxSR13c6QZqZyzVU37OM_v5L8tGcWUpfxxNZxhRK40yS3Q0rdpxi3K4oR3jsP2QLyiLqauojWpgmnp1F4sKWVAVS8tXirEvW_nviDCNTG4yO84Dq5nibHEhGLyZr1LZXLQ6K5Mprc-NWiRsRHJ9kSNGuvnrxmbrqY8icGrCI4Vcvb7URdphAzoSSy-VIH0f4J_PmTjT-Lx-AftGwMob_pE=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUA_AGtSo2JUx7laMBrPmB-ZooAuPwEBTmPuLldZX59Uq_WSVldR5OSTFMgSqP-22jaE1huxZR4iLNcoYhOZJLUkiuHUfUuf8NCrsY_0Z3lJg3CULUiBEzTt8BamsPTSv013p14CLGSRv0A2cbe3wBdHjjB0WVNizhPUzsW0kclemQwVNxsDBbDN5-Q63cmvv79moQ2PoA6bZHiDkwieYCenPl4O1KTy-ZLa9c1fXpo=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUB7sYr5TXUYqmqDupn488ZZzwINNqggdfTrxLpQRbAjM7EZM0AVqj2e2TSqdsGpAenn3DP0q0FvgMfopIelUORj34dplNCMntpj3XW9lTDBp9lVgX2FAr9tHhPpGeBsFHKpe5cavsbULGBYAwEGViWz79eSZc2jBvhXVio9dCKj59SIuXk_afKc0u1yWbQMlaW7wMJEzuB-IIpfbSr2CQsYAa0ZKQ3ZtjfNZkLEMCg=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUAF4HfinRhuVsftLL7zxXoxPFS80TkYl7UPrFw9szRsQRuO5AK2uZpduUt-_LfnwlxlkSuBTtoxkwBvsMfNArNxxz0Hbx6--nAVDncyfVW5uLyDR6RVZpwDo7yO-5I-0bBdUtoD57xP8Dtuq2KasFUDfuoJcJtqDYgH69M9kOabq1OKVdSmu156pfpOKum9hxMLPTSREo2IknKhf54xqWO_s8JfLcJ1UGD0THQQVvE=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUAT1F8JOKFrfROCrqQxVFxvPiSIOaRJAQGt8cfz1GNa2dgPPsh3XMLd82W6jNp7JDPAg_03HK7j-TewoaBhqNySvWfs4RxkW3hFSJyawydn3Awd5XbccLrmz0Er_pYg2F-YH0mMh5slOyQuEsDGT4NEGYdWSkTKyc-gGZXMRVrW6J_Usx2FCKIhsOLZP-5w7zhgHdmg5KLu5pdbhBF5jaZYbnwL8bWNo4cQ-2R6=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUCVdj9p6Ytfjdt0kyIkjzusf1yh9h8CN0iXdpKgwc-KclT7j2aAGDazMsYDFGOgvVUq6r3u9p8-omaQwLoyrwo2HxzqxdTL6HnEu4vLuYZbIyOEGeu1EcYkPJmoO3VvquktRJrivIh-3fVwbmj6Z7vFVFjG_ujMXJ72suFNhnxbeNNRiqnT1LgxF2-aTzjPVbJ6pfLnK0b9-lncVc6Zal2g559FzS3TDZcMu0Hy=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUCNt2iw1Qm02k4t0nGlUHTa5jsy93uAhHq3pdo_yr0v1tCmVijIG2GpMt0M-e-SfVhzOUtm_rrzPviKN6wlsFcZ8aTZtaBzAmzNnNXPsRLQm-9oWG78RDtnv5imTzYeH_hoJvv2qbkEocamhJxQnwUi6lO1rL2FeXOy-2T6e5rlxfBwQ3TW64pGMz4qZYNPZpZwKkx67c65ZIPpJTJ_5Bj_RKWsvD4BCdlqrDMP=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUCV9NQ5xmG_6MW-zkKIOVtVF-LigYkXwjxWe33hQ1-rsGPniycv1qD6gH__hxR5o6BesUvGALkqNyTQJ9wlFsijCTr9Skt_39yIefW1ldEKmI2Ov79bL5HBoLuCRYLxyJGYADLI97VE56bWbED597E3mGVDNHwvRYRZQpWOArk1sW7O8CMhTbcz34UC3Ao_lE6qk1gWCOll5Bqv-T_t90qN6RgKs8UpIifnzEWgI6U=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUCmkxQS2pTFIBbtxhb7WKsn-T8bEQcLuwuYUjQFZ_ZA5l5uO54sTysNO0knLnNvRsGZo3iSMdgb9Pbu42ohW-WhI8PhoC1-jCdyS73oAnBYeg8PGk00gNLPo2EID9Kvu9y_rYTXKDrrfBs5dKMe9vZo6k1iEkcnD_D_mTbeMvM3H2L-YlyZDxC9fLKXP_GtNg3PRLUyj-1vyjvpgs_BRl3ebTF-K1p8tCV-aDYL5Wk=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUAPwuks4eBch42_wRPEk-uJ3sFaxANZ8S4ukmNLFkUpGpUVKs9gw3vcHnGbUuPg-5OVRejgejTRNqYosUsFMB4CcOhbL5-Tgwrum_Y761ZC_kROGlrXVmYElfpAJ8Q5ltDNwYM-CjCfwW_bYgWsj06tlb9BhTChbb_tb_O12BmyTl1ODlWDtW7fkqdrnmfCqkhxul2DWKd9XbZvU_L9wo05MV1Kdq14kiscr5Hy8Zg=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUDaJDEXHzmNBenuLMaAgACNa9nbFPG9yzhddUIfAABKmjHhuhuUpRSipMrQDc1RPf-S1jd-5GV5B1zyVlvP9-GKw88_SZDhML72I0xahz5Unu-5KLFNa1ZJf5sl2BKyKIigZuVIYCjsfgTt5RfeZDRJS1evd-6L_1my9en4gae63ZLtpoJ3JTSE5wZqvYkiZ87pgS2ZF8-7MTj01hNE1JFzwxD1Y78HZTTTltcI=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUAToZVDrAyQGkRj64qjSA22TY0VLKwH3kPUQPPcdaCJEAzISy3ixo_D7hp2VoROaR_w7e0ZePtxRiQL6zflEJzrOOOn6NHzNIRDTqBg1Eq7UHapoV90Y2akEYb_n4TmcLO64par2eAVt9icq2w3GDvvTtg0rmyeUkXwtpf4JuJFYjheKNLI7cda5HuD-P7o1_wmqgxv6hox2n3dGFCyQ6SK6cTrOu_mPhjelY26lIY=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUAckNHmL1q8fHGiohQFGjCdsqpoDl9-fjMcXDsDzLW_Y7Naxf4DJbflpD43KbG_fvvftuc4snz6QKA27RMMd3aUJjC-tGls6obXND0aBAGh4ADcboEJDITpg0CDWNtugtR2IipIfmMgeC-5PQey1pZW5M_VJBFv3FbB69h8nBXhhsBwB-wf2cgzzygxad9GOO4GkdhNiukrDG0Q3xOULKPnuu9KuS9pZVmDN13RcAs=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUC-RoeQuL3COtjIhSHxAf4vFy4bsMy1NKajItcQTlVSLfzebW4XclP9uqAgdqZE5A_ceaVUv0_TEJTuzGmmcIIcVztNa1UqHVU1KvXRNggYsvrTyXpnIG9NWhfzhTUKT-PqCxkc-Fg48bflEMZvWfj267GQ8r1xJzORTrH5RqGaYisHYW8k60eYjxltAAu4Ebk1RwmuKWyDO6Bp0YC7EQEV3hVCLVCNjyBoa7XEH8Y=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUDtdvfeI54agtqvW8jRy7Nf9czkzbqUXXiWoSMauyU-oVR5Xs0V7DKyGnOjOYR9MxF_KUzzdN2wQWXTwO-AXaAT7w8YCAJfA4_j54ko6Q3pN-EK1VTnybN-yJNw6L9bu6Z2aGmZZFJUw_lstwfyhdVh8ZAI7wI40IbGrlXqrolxWvpgq7Z578yOY9fZbhVctU45Z837zE5kLdEDKb0-ZCoUWVcXak2tPLZU8MWYdew=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUBtoU9R5eADvqXt9DafshJTcABsPWtQejrMUGCEXxwa7N-YGqjdignkV1s_eXOwRSVlSI6nYI-8WqV-7H-tibg3RKSKzi_PV2PLDLO5m2d-ambRTldVzrkc1h2DOljEqfwBuSWG1gPJLuMqPwMRS6q4IPrddbZrIptXZnK0eGxofGj9Yagh5UcsS-_71PBF0hXcGnPpfwokN-jTEuW8qad24h87WM-xJ4w_vyK5CKY=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUBiNBa_6stwHvmJQmEe9InRHA4MkO7uULREQS2losEk11Ba8KecTyJ2HAYKb1ciyFqD2n9XxiS6aJtvSp-Wy-wmhr7zWs0yTav5vvBOoluj6FKAHhkYwdI-QI1l_wOQBvA7CI6K1kSblHLSFOdnfSjU81X9vMFItja3jZXvjlzNtUFL50a19ew1yRi-aFCEFciVkSc8rBEQeLKzJgQsx5YXDEZhAAq0uhBTY5nx=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUAAEx9diN-1SSp_KUAcKUUWMZNNA5i3FF4mGHBcGE_GkdorqslqxULd2sRyLJWoCxDVjdy-8e5RJbX9OYX7Re75um7dSxlo7OYjjnPEbs78CbmPlzHYoSeCK6NDf7FYMZp7BpynrWHW2wU81Rotse3eGu-kIG5slxyz6ITInvtM31YQQAczNKRYk7KtO2JDtS5NC1_VgOCZLavxgQqccuXZTlaZYeSPyZIgxYe7mvU=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUBP75g0eI0ithcdLGH05J88_5rND5GOopPyKgqYuVuwlWAV6WocCMk1a98UPYtTtwmyhKDZkRRvcWNZs7obYYw_Bn1q9J9mKQYlU4vWeXWK6jliu348EIZE9RDIYFsFdfQ2qzDsvPgcoE3mrWD834FgEIurDDkl6-WnxLcUcyYekljVwh7jdUnQzSx3dqXhGTZa9Kp_nzbd5BItc2bxZYn4zNd27wAgRRMtcZfPzQs=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUCtMQWJ2VbEOh5UXqMQ5aL0Ww0Oys04lQ-S9-QIroOXE_2SDvyC6Ay4EehBAFHLDoHueciMC58V5G4T6mNH5CEuEHFm6WwpBu4E3o31ztnqH3xnTa_oF8cbBHn3rBYv7ukKvZlCr-_e8P1Ui2DL81FKXp227Gnr6eqdC_5HqW-wFwKY97Ch8RwXhUvpQSu5QHsoVYlMvKnsO9DAUvhhug6SzjzQWxDk4_JV_zUk=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUDs8quUHPSVgULTI8FMZMEIBsNveiBlMFV6yxybMvLQBTr7BMk6O7s7Ifr59Hf7ORV7KNn2UMZo6pFWeTvoBUzeuN3aAM2vCYoMTiL9hmi6v9mLSwNp-ii6WI5XhcT0_GDMnYPH_-33z9c9rx9futgzIwOKnla_xz5-w850FJdNcerp6ygrrj-KbBmcM229C0wgNid1HxrTub9agZfcjVBmncjShHVRbBm8OV8p=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUDdGNl9TZhZLcqn-Md_Xp7v9zUz-q2jmHNve2SPIDLS-8FtZ4fieJiDE76tJ-WY_kF0HIyhM-5Q5s4f6Kq96km4g_zbnTg9OuwleToclk84qorVcueWjGQmmiXniQdkB92uj2njiRvAY2jKI5mN7zAaSqo-W96prjYjqmoH7fEx_vOTV21yLDgbTnBWDDhVOJu0bw_0gwbA13lIMOx-gzHwkVx98kzQSUHta70mg6M=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUDkCs_3EGquzaVVXAgTFL1LVGAKdh-Cj9Fw-99E4rvTz8ZjFhRIP28krnd6nt6C-_O4Qi8-jquZpVgI7dFeBr8qZy98jD1b1diP90IyKVrvIZxyFtTwln_oJJOgv-uA6uulSffZfWrxwCFlpM9wRK_RRT2EsPX-O4DD8pR3fjVbdkGDrvKbeFe5aUYnQyOt4NxDilraVgn1tBM2x1hjj9SktFraIGov3KLRRviDNQk=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUBKC8E91vD3KZH-PqUk2-aOjQt8vWA308vJAmkdsqu1WVhSUEC_02LL2DrTrCOwTHZrRfElkv3FuTfm2DX71d_B2zQOOU0mpOECQC8PYF3a7zqbXvwi5tLISDLfWtnKJR_cr6nJMSQ0fG20xZ35q4f6NoXb6VxArx2PoCH8zG4d6w_v0Q82-KuQRm1kR-oX8yEL1lFuUs2QvC8dDPGeACrrgJ7jPW9OXbJxpB6YvXU=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUBJbLmjir9lNSZJqF9y_lC5dKTwVHR1HAAMcODBDHgYtEEX5oKlB_pOtn4E3Jsjwr_EOnVHpRlm2fy7OkEL7ZmyJHDujfuwx2d1QQikBQbJENzPlJwAvPaa8lEem72VEyF2gYQ-SQsbItKK3MyjVZz6aUeZlF4s32qp7WQvZB2rCL3UUV9AJTENe7uvvJdPRC41bj5rFyFdvFMjO0AWOB9Kt4QhSCGZGr6LUhdjq9Y=w1280",
+  "https://lh3.googleusercontent.com/sitesv/AA5AbUBXvv-pj0dyx_9szWbrt1ophC0mZszjOpZ487Adpa1F11uF_8zyNmipBYzbZyIaF0Zk4qUai3YXXhhpucjYQkFOTWLsC1v6PQJJ01fNkZE2sN9dbcrm45k_DjvyRQ3MXiYCS4llB9jvGpW4_Hk-pPd83p5W9gEjOU4cLViWvQ_VCv7dD-p-DSQ0rMpWB09-kAsVb49b8IgZFq4OUEJfieeLbL258nGCQwHzWrywvk0=w1280",
+];
 // ============================================================
 //  2. Helpers
 // ============================================================
@@ -414,8 +448,26 @@ function renderDeveloper() {
       </div>
     </div>`;
   }).join("");
+
+  // gallery grid
+  el("galleryGrid").innerHTML = PROJECTS.map((p, i) => {
+    const img = IMAGES[i];
+    if (!img) return "";
+    return `<div class="gimg"><img src="${img}" alt="${p.n}"><p>${p.n}</p></div>`;
+  }).join("");
 }
 
+// Gallery / list toggle
+let showingGallery = false;
+el("galleryToggleBtn").onclick = () => {
+  showingGallery = !showingGallery;
+  el("projects").style.display = showingGallery ? "none" : "grid";
+  el("galleryGrid").style.display = showingGallery ? "grid" : "none";
+  el("galleryToggleBtn").textContent = showingGallery ? "List view" : "Gallery view";
+  el("projCaption").textContent = showingGallery
+    ? `${PROJECTS.length} project images`
+    : `${PROJECTS.length} projects · embedded systems, IoT & research`;
+};
 // ============================================================
 //  9. Tabs
 // ============================================================
