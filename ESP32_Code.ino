@@ -32,8 +32,11 @@ const char* WIFI_PASSWORD = "mehedi113";
 
 // From Supabase -> Project Settings -> API
 // URL must end with /rest/v1/readings
-const char* SUPABASE_URL  = "https://YOUR_PROJECT_ID.supabase.co/rest/v1/readings";
-const char* SUPABASE_KEY  = "YOUR_SUPABASE_ANON_KEY";   // the "anon public" key
+const char* SUPABASE_URL  = "https://oacpdzphwojhnyuhoeqe.supabase.co";
+const char* SUPABASE_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hY3BkenBod29qaG55dWhvZXFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4MzkzMzAsImV4cCI6MjA5OTQxNTMzMH0.CtgC01UX3aIqx7p0QZCWC_ymmT2OeZsj6K4Y3Q8dkFM";   // the "anon public" key
+
+
+
 
 const char* DEVICE_ID     = "meter_01";                 // label for this meter
 
