@@ -363,23 +363,23 @@ const PROJ_GRAD = [
 ];
 function projIcon(s) {
   s = s.toLowerCase();
-  if (/cam|surveillance|camera|photo/.test(s)) return "📷";
-  if (/rfid/.test(s)) return "🪪";
-  if (/robot|talking|xiaozhi/.test(s)) return "🤖";
-  if (/arrhythmia|nebulizer|patient|health/.test(s)) return "❤️";
-  if (/water|hydro|tds/.test(s)) return "💧";
-  if (/plant|soil|agri|growth/.test(s)) return "🌱";
-  if (/poultry|brooder|brooding|farm/.test(s)) return "🐔";
-  if (/fire/.test(s)) return "🔥";
-  if (/smoke/.test(s)) return "💨";
-  if (/lora|gateway|earthquake|radar/.test(s)) return "📡";
-  if (/vote|voting/.test(s)) return "🗳️";
-  if (/oled|display|rgb|robot face/.test(s)) return "🖥️";
-  if (/ble|bluetooth|presentation/.test(s)) return "🔷";
-  if (/research|blockchain|tinyml|edge/.test(s)) return "🔬";
-  if (/home|automation|clap|relay|ir /.test(s)) return "🏠";
-  if (/light|led/.test(s)) return "💡";
-  return "⚡";
+  if (/cam|surveillance|camera|photo/.test(s)) return " ";
+  if (/rfid/.test(s)) return " ";
+  if (/robot|talking|xiaozhi/.test(s)) return " ";
+  if (/arrhythmia|nebulizer|patient|health/.test(s)) return " ";
+  if (/water|hydro|tds/.test(s)) return " ";
+  if (/plant|soil|agri|growth/.test(s)) return " ";
+  if (/poultry|brooder|brooding|farm/.test(s)) return " ";
+  if (/fire/.test(s)) return " ";
+  if (/smoke/.test(s)) return " ";
+  if (/lora|gateway|earthquake|radar/.test(s)) return " ";
+  if (/vote|voting/.test(s)) return " ";
+  if (/oled|display|rgb|robot face/.test(s)) return " ";
+  if (/ble|bluetooth|presentation/.test(s)) return "  ";
+  if (/research|blockchain|tinyml|edge/.test(s)) return " ";
+  if (/home|automation|clap|relay|ir /.test(s)) return " ";
+  if (/light|led/.test(s)) return " ";
+  return " ";
 }
 function renderDeveloper() {
   el("navAvatar").textContent = DEVELOPER.initials || "D";
