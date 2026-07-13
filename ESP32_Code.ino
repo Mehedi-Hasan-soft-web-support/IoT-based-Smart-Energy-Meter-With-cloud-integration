@@ -31,26 +31,25 @@ const char* WIFI_SSID     = "Me";
 const char* WIFI_PASSWORD = "mehedi113";
 
 // From Supabase -> Project Settings -> API
-// URL must end with /rest/v1/readings
-const char* SUPABASE_URL  = "https://oacpdzphwojhnyuhoeqe.supabase.co";
+// !!! IMPORTANT: this URL MUST end with /rest/v1/readings  !!!
+const char* SUPABASE_URL  = "https://oacpdzphwojhnyuhoeqe.supabase.co/rest/v1/readings";
 const char* SUPABASE_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hY3BkenBod29qaG55dWhvZXFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4MzkzMzAsImV4cCI6MjA5OTQxNTMzMH0.CtgC01UX3aIqx7p0QZCWC_ymmT2OeZsj6K4Y3Q8dkFM";   // the "anon public" key
-
-
-
 
 const char* DEVICE_ID     = "meter_01";                 // label for this meter
 
 const unsigned long SEND_INTERVAL_MS = 10000;           // upload every 10 s
 const unsigned long LCD_ROTATE_MS    = 3000;            // change LCD screen every 3 s
 
+// Set true to push FAKE data when no PZEM is connected.
+// Use this to test the Supabase link by itself, then set back to false.
+const bool SEND_TEST_DATA_IF_NO_SENSOR = false;
+
 // ------------------------------------------------------------
 //  2. HARDWARE PINS
 // ------------------------------------------------------------
-// PZEM-004T on hardware Serial2
 #define PZEM_RX_PIN 16   // ESP32 GPIO16 (RX2) <- PZEM TX
 #define PZEM_TX_PIN 17   // ESP32 GPIO17 (TX2) -> PZEM RX
 
-// I2C for the LCD (default ESP32 pins). SDA=21, SCL=22
 #define LCD_ADDR 0x27    // if screen stays blank/blocky try 0x3F
 
 PZEM004Tv30 pzem(Serial2, PZEM_RX_PIN, PZEM_TX_PIN);
@@ -98,28 +97,28 @@ void setup() {
 //  5. MAIN LOOP
 // ------------------------------------------------------------
 void loop() {
-  // Keep WiFi alive
   if (WiFi.status() != WL_CONNECTED) {
     connectWiFi();
   }
 
-  // Read the sensor continuously so the LCD is always fresh
   readSensor();
 
-  // Rotate LCD screens
   if (millis() - lastRotate >= LCD_ROTATE_MS) {
     lastRotate = millis();
     lcdScreen = (lcdScreen + 1) % 3;
     updateLCD();
   }
 
-  // Upload to Supabase on a slower interval
   if (millis() - lastSend >= SEND_INTERVAL_MS) {
     lastSend = millis();
     if (latest.valid) {
       sendToSupabase(latest);
+    } else if (SEND_TEST_DATA_IF_NO_SENSOR) {
+      Reading t = { 230.0, 0.500, 115.0, 1.234, 50.0, 0.98, true };
+      Serial.println("[UPLOAD] No sensor -> sending TEST data.");
+      sendToSupabase(t);
     } else {
-      Serial.println("[UPLOAD] Skipped - no valid reading yet.");
+      Serial.println("[UPLOAD] Skipped - no valid sensor reading yet.");
     }
   }
 
@@ -159,10 +158,9 @@ void readSensor() {
   float f  = pzem.frequency();
   float pf = pzem.pf();
 
-  // If the sensor is disconnected the library returns NaN
   if (isnan(v) || isnan(i) || isnan(p) || isnan(e) || isnan(f) || isnan(pf)) {
     latest.valid = false;
-    Serial.println("Device Offline Mode");
+    Serial.println("[PZEM] No reading (check PZEM wiring / AC power).");
     return;
   }
 
@@ -196,15 +194,15 @@ void updateLCD() {
   char l1[17];
 
   switch (lcdScreen) {
-    case 0: // Voltage & Current
+    case 0:
       snprintf(l0, sizeof(l0), "Volt: %6.1f V", latest.voltage);
       snprintf(l1, sizeof(l1), "Curr: %6.3f A", latest.current);
       break;
-    case 1: // Power & Energy
+    case 1:
       snprintf(l0, sizeof(l0), "Pwr : %6.1f W", latest.power);
       snprintf(l1, sizeof(l1), "Enr : %5.3fkWh", latest.energy);
       break;
-    default: // Frequency & Power factor
+    default:
       snprintf(l0, sizeof(l0), "Freq: %6.1fHz", latest.frequency);
       snprintf(l1, sizeof(l1), "PF  : %6.2f", latest.pf);
       break;
@@ -220,14 +218,19 @@ void updateLCD() {
 //  9. UPLOAD TO SUPABASE
 // ------------------------------------------------------------
 void sendToSupabase(const Reading& r) {
-  if (WiFi.status() != WL_CONNECTED) return;
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("[UPLOAD] No WiFi - skipping.");
+    return;
+  }
 
   WiFiClientSecure client;
-  client.setInsecure();   // skips TLS cert check - fine for a student project
+  client.setInsecure();   // skip TLS cert check (fine for a student project)
 
   HTTPClient https;
+  https.setTimeout(8000);
+
   if (!https.begin(client, SUPABASE_URL)) {
-    Serial.println("[UPLOAD] https.begin failed");
+    Serial.println("[UPLOAD] https.begin() failed - check the URL.");
     return;
   }
 
@@ -236,22 +239,29 @@ void sendToSupabase(const Reading& r) {
   https.addHeader("Authorization", String("Bearer ") + SUPABASE_KEY);
   https.addHeader("Prefer", "return=minimal");
 
-  // Build JSON body
   char body[256];
   snprintf(body, sizeof(body),
     "{\"device_id\":\"%s\",\"voltage\":%.2f,\"current\":%.3f,"
     "\"power\":%.2f,\"energy\":%.3f,\"frequency\":%.2f,\"power_factor\":%.2f}",
     DEVICE_ID, r.voltage, r.current, r.power, r.energy, r.frequency, r.pf);
 
-  int code = https.POST((uint8_t*)body, strlen(body));
+  Serial.print("[UPLOAD] POST -> "); Serial.println(SUPABASE_URL);
+  Serial.print("[UPLOAD] Body -> "); Serial.println(body);
 
-  if (code > 0) {
-    Serial.printf("[UPLOAD] HTTP %d\n", code);
-    if (code != 201 && code != 200 && code != 204) {
-      Serial.println(https.getString());
-    }
+  int code = https.POST(String(body));
+  String resp = https.getString();
+
+  Serial.printf("[UPLOAD] HTTP %d\n", code);
+  if (resp.length()) { Serial.print("[UPLOAD] Resp -> "); Serial.println(resp); }
+
+  if (code == 200 || code == 201 || code == 204) {
+    Serial.println("[UPLOAD] OK - row inserted.");
   } else {
-    Serial.printf("[UPLOAD] Failed: %s\n", https.errorToString(code).c_str());
+    Serial.println("[UPLOAD] FAILED. Common causes:");
+    Serial.println("   401 / 403 -> RLS: run the 'anon can insert readings' policy in Supabase");
+    Serial.println("   404       -> URL must end with /rest/v1/readings, or table name wrong");
+    Serial.println("   400       -> column name mismatch in the JSON body");
+    Serial.println("   -1 / -11  -> WiFi/TLS/DNS problem");
   }
 
   https.end();
